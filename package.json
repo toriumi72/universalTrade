@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@antfu/eslint-config": "^0.39.6",
+    "@vite-pwa/nuxt": "^0.0.8",
+    "@vueuse/core": "^10.1.2",
     "firebase-admin": "^11.7.0",
     "firebase-functions": "^4.3.0",
     "firebase": "^9.23.0"
