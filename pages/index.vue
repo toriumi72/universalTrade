@@ -7,7 +7,9 @@ onMounted(() => {
 </script>
 
 <template>
+  
   {{ loggedInUser }}
+
 </template>
 
 <style scoped>
