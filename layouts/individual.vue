@@ -3,11 +3,9 @@
 </script>
 
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <UContainer>
+    <slot/>
+  </UContainer>
 </template>
 
 <style scoped>

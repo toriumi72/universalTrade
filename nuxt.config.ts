@@ -13,4 +13,10 @@ export default defineNuxtConfig({
       measurementId: "G-BE83W5BE56"
     },
   },
+  colorMode: {
+    preference: 'light'
+  },
+  nitro: {
+    preset: "firebase",
+  }
 })

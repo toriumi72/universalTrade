@@ -1,10 +1,11 @@
-export interface User {
+export interface LoggedInUser {
   id: string;
-  displayName: string;
-  email: string;
-  university: string;
-  faculty: string;
-  selfIntroduction: string;
+  displayName: string | null;
+  photoURL: string | null;
+  email?: string;
+  university?: string;
+  faculty?: string;
+  selfIntroduction?: string;
   // createdAt: FirebaseFirestore.Timestamp;
   // updatedAt: FirebaseFirestore.Timestamp;
 }

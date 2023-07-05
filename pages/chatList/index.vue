@@ -4,12 +4,10 @@
 
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    chatList
   </div>
 </template>
 
 <style scoped>
 
-</style>
+</style>[
