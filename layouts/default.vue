@@ -3,28 +3,29 @@ const route = useRoute()
 // const { token } = useAuth()
 const localNavArray = ref([
   {
-    slack: 'books',
+    slack: 'home',
     name: '教科書検索',
     icon: 'i-heroicons-home',
-    selectedIcon: 'mingcute:home-1-fill'
+    // selectedIcon: 'mingcute:home-1-fill'
   },
   {
     slack: 'chatList',
     name: 'チャット',
     icon: 'i-heroicons-chat-bubble-left-right',
-    selectedIcon: 'mingcute:message-3-fill'
+    // selectedIcon: 'mingcute:message-3-fill'
   },
   {
-    slack: 'like',
+    slack: 'bookmarkList',
+    
     name: 'いいね',
     icon: 'i-heroicons-bookmark',
-    selectedIcon: 'ic:baseline-bookmark'
+    // selectedIcon: 'ic:baseline-bookmark'
   },
   {
     slack: 'mySetting',
     name: '設定',
     icon: 'i-heroicons-user',
-    selectedIcon: 'mdi:account-circle'
+    // selectedIcon: 'mdi:account-circle'
   }
 ])
 const isOpenMenu = ref(false)

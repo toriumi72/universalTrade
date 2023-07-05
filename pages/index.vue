@@ -1,11 +1,13 @@
 <script setup lang="ts">
+const { loggedInUser } = useAuth()
 
+onMounted(() => {
+  // navigateTo('/home')
+})
 </script>
 
 <template>
-  <div>
-    aaaaaaaaaaaaaaaaaaa
-  </div>
+  {{ loggedInUser }}
 </template>
 
 <style scoped>
