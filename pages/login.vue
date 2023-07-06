@@ -1,12 +1,12 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: 'individual',
+})
 </script>
 
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <Login />
   </div>
 </template>
 

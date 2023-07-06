@@ -1,13 +1,11 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: 'individual',
+})
 </script>
 
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <Register />
 </template>
 
 <style scoped>

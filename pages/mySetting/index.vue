@@ -4,9 +4,7 @@
 
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    mySetting
   </div>
 </template>
 
