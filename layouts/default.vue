@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-// const { token } = useAuth()
+const { loggedInUser } = useAuth()
 const localNavArray = ref([
   {
     slack: 'home',
@@ -48,8 +48,22 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="fixed bottom-0 left-0 w-full h-auto z-[99]">
-    <div class="flex px-3 pt-2 pb-8 items-center shadow bg-white">
+  <div class="fixed top-0 left-0 flex justify-end items-center py-3 px-4 sm:px-6 lg:px-8 w-full h-auto bg-white/70 backdrop-blur shadow-sm z-[99]">
+    <template v-if="loggedInUser">
+      <UAvatar v-if="loggedInUser.photoURL" :src="loggedInUser.photoURL" alt="Avatar" size="sm" />
+      <USkeleton v-else :ui="{ rounded: 'rounded-full' }" class="h-8 w-8 border" />
+    </template>
+    <template v-else>
+      <UButton @click="navigateTo('/login')" label="ログイン" color="black" size="sm" />
+    </template>
+  </div>
+  
+  <UContainer class="pt-14">
+    <slot/>
+  </UContainer>
+
+  <div class="fixed bottom-0 left-0 w-full h-auto bg-white shadow z-[99]">
+    <div class="flex px-2 pt-2 pb-8 items-center">
       <div class="grow flex items-center">
         <button @click="isOpenMenu = !isOpenMenu" class="absolute left-1/2 flex items-center justify-center h-12 w-12 -top-4 -translate-x-1/2 rounded-3xl bg-indigo-500 text-white shadow-lg sm:-top-8 sm:h-16 sm:w-16">
           <UIcon name="i-heroicons-shopping-bag" class="text-2xl"  />
@@ -65,7 +79,4 @@ onUnmounted(() => {
       <!-- <SwipeMenu v-show="isOpenMenu" @close="isOpenMenu = false" /> -->
     </div>
   </div>
-  <UContainer>
-    <slot/>
-  </UContainer>
 </template>
