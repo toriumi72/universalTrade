@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { token, signUp, googleLogin }  = useAuth()
-const createEmail = ref(null)
-const createPassword = ref(null)
+const createEmail = ref("")
+const createPassword = ref("")
 onMounted(async () => {
   console.log(token.value)
 })
@@ -43,14 +43,14 @@ const onGoogleLogin = async () => {
       <div class="mx-auto max-w-lg rounded-lg border">
         <div class="flex flex-col gap-4 p-4">
           <div>
-            <label for="createEmail" class="mb-2 inline-block text-sm text-gray-800">Email</label>
-            <input v-model="createEmail" name="createEmail" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+            <UFormGroup label="Email" help="あなたのメールを他の人と共有することはありません。">
+            <UInput v-model="createEmail" placeholder="you@example.com" icon="i-heroicons-envelope" size="xl" color="violet" required /></UFormGroup>
           </div>
           <div>
-            <label for="createPassword" class="mb-2 inline-block text-sm text-gray-800">Password</label>
-            <input v-model="createPassword" name="createPassword" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+            <UFormGroup label="Password">
+            <UInput v-model="createPassword" icon="i-heroicons-key" size="xl" color="violet" required /></UFormGroup>
           </div>
-          <UButton @click="onSignUp" label="Create" color="indigo" size="xl" block />
+          <UButton @click="onSignUp" label="Create" color="purple" size="xl" block />
           <div class="relative items-center justify-center flex">
             <span class="inset-x-0 h-px bg-gray-300 absolute"></span>
             <span class="relative bg-white px-4 text-sm text-gray-400">create in social</span>
@@ -60,7 +60,7 @@ const onGoogleLogin = async () => {
         <div class="flex items-center justify-center bg-gray-100 p-4">
           <div class="text-center text-sm text-gray-500">
             Do you have an account? 
-            <UButton @click="navigateTo('/login')" label="Login" color="indigo" variant="link" />
+            <UButton @click="navigateTo('/login')" label="Login" color="violet" variant="link" />
           </div>
         </div>
       </div>

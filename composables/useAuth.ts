@@ -13,6 +13,8 @@ import { LoggedInUser } from '@/type'
 
 export const useAuth = () => {
 
+  const { getProfile } = useStore()
+
   const { $fireAuth } = useNuxtApp()
 
   const auth = $fireAuth as Auth
@@ -22,14 +24,24 @@ export const useAuth = () => {
   const token = useState<string | null>('token', () => null)
   const userProfile = useState<any | null>('userProfile', () => null)
 
+  // watchEffect(async () => {
+  //   if (loggedInUser.value) {
+  //     // Fetch profile from the database
+  //     userProfile.value = await getProfile(loggedInUser.value) 
+  //   } else {
+  //     userProfile.value = null
+  //   }
+  // })
+
   // When onAuthStateChanged runs, it will set the loggedInUser and token
-  const setFireAuthInCurrentUser = (user:User) => {
+  const setFireAuthInCurrentUser = async (user:User) => {
     const { uid, displayName, photoURL } = user
     loggedInUser.value = {
-      id: uid, 
+      uid, 
       displayName, 
       photoURL
     }
+    userProfile.value = await getProfile(loggedInUser.value)
     console.log('setFireAuthInCurrentUser')  
   }
 

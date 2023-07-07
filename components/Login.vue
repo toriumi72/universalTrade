@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const { token, googleLogin, signIn }  = useAuth()
 
-const email = ref(null)
-const password = ref(null)
+const email = ref("")
+const password = ref("")
 
 const onGoogleLogin = async () => {
   try {
@@ -44,14 +44,14 @@ const onSignIn = async () => {
     <div class="mx-auto max-w-lg rounded-lg border">
       <div class="flex flex-col gap-4 p-4">
         <div>
-          <label for="email" class="mb-2 inline-block text-sm text-gray-800">Email</label>
-          <input v-model="email" name="email" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+          <UFormGroup label="Email" help="あなたのメールを他の人と共有することはありません。">
+          <UInput v-model="email" placeholder="you@example.com" icon="i-heroicons-envelope" size="xl" color="violet" required /></UFormGroup>
         </div>
         <div>
-          <label for="password" class="mb-2 inline-block text-sm text-gray-800">Password</label>
-          <input v-model="password" name="password" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+          <UFormGroup label="Password">
+          <UInput v-model="password" icon="i-heroicons-key" size="xl" color="violet" required /></UFormGroup>
         </div>
-        <UButton @click="onSignIn" label="Login" color="indigo" size="xl" block />
+        <UButton @click="onSignIn" label="Login" color="purple" size="xl" block />
         <div class="relative items-center justify-center flex">
           <span class="inset-x-0 h-px bg-gray-300 absolute"></span>
           <span class="relative bg-white px-4 text-sm text-gray-400">Log in with social</span>
@@ -61,7 +61,7 @@ const onSignIn = async () => {
       <div class="flex items-center justify-center bg-gray-100 p-4">
         <div class="text-center text-sm text-gray-500">
           Don't have an account? 
-          <UButton @click="navigateTo('/register')" label="Register" color="indigo" variant="link" />
+          <UButton @click="navigateTo('/register')" label="Register" color="violet" variant="link" />
           </div>
       </div>
     </div>
