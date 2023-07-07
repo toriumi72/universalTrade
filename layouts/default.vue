@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const { loggedInUser } = useAuth()
+const { loggedInUser, userProfile } = useAuth()
 const localNavArray = ref([
   {
     slack: 'home',
@@ -16,7 +16,6 @@ const localNavArray = ref([
   },
   {
     slack: 'bookmarkList',
-    
     name: 'いいね',
     icon: 'i-heroicons-bookmark',
     // selectedIcon: 'ic:baseline-bookmark'
@@ -49,10 +48,11 @@ onUnmounted(() => {
 
 <template>
   <div class="fixed top-0 left-0 flex justify-end items-center py-3 px-4 sm:px-6 lg:px-8 w-full h-auto bg-white/70 backdrop-blur shadow-sm z-[99]">
-    <template v-if="loggedInUser">
-      <UAvatar v-if="loggedInUser.photoURL" :src="loggedInUser.photoURL" alt="Avatar" size="sm" />
+    <UButton v-if="loggedInUser" @click="navigateTo('/')" :ui="{ rounded: 'rounded-full', padding: 'px-0 py-0' }" size="sm" color="violet" variant="ghost">
+      <UAvatar v-if="loggedInUser && !userProfile?.avatarURL && loggedInUser.photoURL" :src="loggedInUser.photoURL" alt="Avatar" size="sm" />
+      <UAvatar v-else-if="userProfile && userProfile.avatarURL" :src="userProfile.avatarURL" alt="Avatar" size="sm" />
       <USkeleton v-else :ui="{ rounded: 'rounded-full' }" class="h-8 w-8 border" />
-    </template>
+    </UButton>
     <template v-else>
       <UButton @click="navigateTo('/login')" label="ログイン" color="black" size="sm" />
     </template>
@@ -65,12 +65,12 @@ onUnmounted(() => {
   <div class="fixed bottom-0 left-0 w-full h-auto bg-white shadow z-[99]">
     <div class="flex px-2 pt-2 pb-8 items-center">
       <div class="grow flex items-center">
-        <button @click="isOpenMenu = !isOpenMenu" class="absolute left-1/2 flex items-center justify-center h-12 w-12 -top-4 -translate-x-1/2 rounded-3xl bg-indigo-500 text-white shadow-lg sm:-top-8 sm:h-16 sm:w-16">
+        <button @click="isOpenMenu = !isOpenMenu" class="absolute left-1/2 flex items-center justify-center h-12 w-12 -top-4 -translate-x-1/2 rounded-3xl bg-violet-600 text-white shadow-lg sm:-top-8 sm:h-16 sm:w-16">
           <UIcon name="i-heroicons-shopping-bag" class="text-2xl"  />
         </button>
         <!-- <UButton @click="isOpenMenu = !isOpenMenu" class="absolute left-1/2 flex items-center justify-center -top-4 -translate-x-1/2" icon="i-heroicons-shopping-bag" size="xl" color="primary" rounded="rounded-full" square variant="solid" /> -->
         <button v-for="(localNav, index) of localNavArray" @click="navigateTo('/' + localNav.slack)" class="basis-1/4 py-[calc(0.2vh_+_6px)]" :class="{ 'mr-7': index === 1, 'ml-7': index === 2, }">
-          <div class="text-[calc(2vh_+_8px)] leading-none" :class="{ 'text-[#6B4EFF]': route.path === '/' + localNav.slack }">
+          <div class="text-[calc(2vh_+_8px)] leading-none" :class="{ 'text-violet-600': route.path === '/' + localNav.slack }">
             <UIcon v-show="route.path === '/' + localNav.slack" :name="localNav.icon" class="text-light" />
             <UIcon v-show="route.path !== '/' + localNav.slack" :name="localNav.icon" class="text-light" />
           </div>

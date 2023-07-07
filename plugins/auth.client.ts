@@ -35,6 +35,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       user.getIdTokenResult(true)
       .then((idTokenResult) => {
         setFireAuthInCurrentUser(user) 
+        
         console.log('logged in')
       })
     }

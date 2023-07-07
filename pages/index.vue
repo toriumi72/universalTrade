@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { loggedInUser } = useAuth()
+const { loggedInUser, userProfile } = useAuth()
 
 onMounted(() => {
   // navigateTo('/home')
@@ -7,8 +7,12 @@ onMounted(() => {
 </script>
 
 <template>
-  
-  {{ loggedInUser }}
+  <div>
+    loggedInUser:{{ loggedInUser }}
+  </div>
+  <div>
+    userProfile:{{ userProfile }}
+  </div>
 
 </template>
 
