@@ -9,7 +9,7 @@ export const useStorage = () => {
 
   const storage = $fireStorage as any
 
-  const uploadAvatarFile = async (file: File) => {
+  const uploadFile = async (file: File) => {
     const storageReference = storageRef(storage, 'images/' + file.name)
 
     await uploadBytes(storageReference, file)
@@ -20,6 +20,6 @@ export const useStorage = () => {
   }
 
   return {
-    uploadAvatarFile
+    uploadFile
   }
 }

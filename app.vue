@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const { loggedInUser, userProfile } = useAuth()
-const { getProfile } = useStore()
+const { getProfile, getBookListRealtime } = useStore()
 
 // onMounted(async () => {
 //   if (loggedInUser.value) {
-//     userProfile.value = await getProfile(loggedInUser.value)
+//     getBookListRealtime()
 //   }
 // })
-
+getBookListRealtime()
 // let preventTouchMove: (event: TouchEvent) => void
 // onMounted(async () => {
 //   preventTouchMove = (event: TouchEvent) => event.preventDefault()
@@ -25,5 +25,10 @@ const { getProfile } = useStore()
 </template>
 
 <style scoped>
-
+html {
+  touch-action: manipulation;
+}
+body * {
+  position: relative;
+}
 </style>

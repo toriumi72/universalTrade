@@ -58,15 +58,20 @@ onUnmounted(() => {
     </template>
   </div>
   
-  <UContainer class="pt-14">
+  <!-- <UContainer class="pt-14">
     <slot/>
-  </UContainer>
+  </UContainer> -->
+
+  <!-- 仮の設定 -->
+  <div class="pt-14 pb-24">
+    <slot />
+  </div>
 
   <div class="fixed bottom-0 left-0 w-full h-auto bg-white shadow z-[99]">
     <div class="flex px-2 pt-2 pb-8 items-center">
       <div class="grow flex items-center">
-        <button @click="isOpenMenu = !isOpenMenu" class="absolute left-1/2 flex items-center justify-center h-12 w-12 -top-4 -translate-x-1/2 rounded-3xl bg-violet-600 text-white shadow-lg sm:-top-8 sm:h-16 sm:w-16">
-          <UIcon name="i-heroicons-shopping-bag" class="text-2xl"  />
+        <button @click="isOpenMenu = !isOpenMenu, navigateTo('/exhibit')" class="absolute left-1/2 flex items-center justify-center h-12 w-12 -top-4 -translate-x-1/2 rounded-3xl bg-violet-600 text-white shadow-lg sm:-top-8 sm:h-16 sm:w-16">
+          <UIcon name="i-heroicons-shopping-bag" class="text-2xl" />
         </button>
         <!-- <UButton @click="isOpenMenu = !isOpenMenu" class="absolute left-1/2 flex items-center justify-center -top-4 -translate-x-1/2" icon="i-heroicons-shopping-bag" size="xl" color="primary" rounded="rounded-full" square variant="solid" /> -->
         <button v-for="(localNav, index) of localNavArray" @click="navigateTo('/' + localNav.slack)" class="basis-1/4 py-[calc(0.2vh_+_6px)]" :class="{ 'mr-7': index === 1, 'ml-7': index === 2, }">
@@ -76,7 +81,10 @@ onUnmounted(() => {
           </div>
         </button>
       </div>
-      <!-- <SwipeMenu v-show="isOpenMenu" @close="isOpenMenu = false" /> -->
+      <!-- <UModal v-show="isOpenMenu" @close="isOpenMenu = false" >
+        <SwipeMenu v-show="isOpenMenu" @close="isOpenMenu = false" />
+      </UModal> -->
+      <SwipeMenu v-show="isOpenMenu" @close="isOpenMenu = false" />
     </div>
   </div>
 </template>

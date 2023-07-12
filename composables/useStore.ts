@@ -19,7 +19,7 @@ import {
   SnapshotListenOptions,
   Firestore
 } from "firebase/firestore"
-import { LoggedInUser, Textbook } from '@/type'
+import { LoggedInUser, BookItem } from '@/type'
 
 import { cdate } from "cdate"
 
@@ -34,13 +34,14 @@ export const useStore = () => {
     voidUpdateDoc,
     voidDeleteDoc,
   } = useFireStore()
+  const { uploadFile } = useStorage()
 
   const { $fireStore } = useNuxtApp()
   const db = $fireStore as Firestore
 
   //global
-  const bookList = useState<Textbook | null>('bookList', () => null)
-  const chatList = useState<any>('chatList', () => null)
+  const bookList = useState<any>('bookList', () => null)
+  const chatList = useState<any>('chatList', () => [])
 
   //read
   const getProfile = async (loggedInUser:LoggedInUser) => {
@@ -55,7 +56,7 @@ export const useStore = () => {
     return Promise.resolve(data)
   }
 
-  const getBookListRealtime = (bookList: Ref<any[]>) => {
+  const getBookListRealtime = async () => {
     const bookListCollection = collection(db, "BookList")
     const sortedBookListCollection = query(bookListCollection)
     const onNext = (querySnapshot: any) => {
@@ -100,7 +101,7 @@ export const useStore = () => {
     const { avatarURL, ...otherData } = data
 
     // Upload the file to Firebase Storage and get the URL
-    const fileUrl = await useStorage().uploadAvatarFile(avatarURL)
+    const fileUrl = await uploadFile(avatarURL)
 
     await voidSetDoc(docRef("Users", uid), {
       uid,
@@ -109,14 +110,21 @@ export const useStore = () => {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     }).catch((e: Error) => Promise.reject(e))
-    
+
     return Promise.resolve()
   }
 
-  const addBookItem = async (data:object) => {
+  const addBookItem = async (loggedInUser:LoggedInUser, data:any) => {
+    const { uid } = loggedInUser
+    const { seller, imageURL, ...otherData } = data
+
+    const fileUrl = await uploadFile(imageURL)
+
     const bookListCollection = collection(db, "BookList")
     const bookListRef = await getAddDocRef(bookListCollection, {
-      ...data,
+      sellerId:uid,
+      imageURL: fileUrl,
+      ...otherData,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     }).catch((e: Error) => Promise.reject(e))

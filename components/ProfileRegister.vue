@@ -74,8 +74,6 @@ const isCurrentStepFilled = computed(() => {
 </script>
 
 <template>
-  {{ addProfileData }}
-  {{ avatarURLSample }}
   <div class="mx-auto max-w-md">
     <div class="p-6 bg-white rounded">
       <h1 class="mb-4 text-2xl font-semibold">プロフィール登録</h1>

@@ -15,13 +15,13 @@ export interface UserProfile {
   // updatedAt: FirebaseFirestore.Timestamp;
 }
 
-export interface Textbook {
-  id: string;
+export interface BookItem {
+  // id: string;
   name: string;
   condition: string;
   description: string;
   price: number;
-  imageUrl: string;
+  imageURL: string;
   sellerId: string;
   // createdAt: FirebaseFirestore.Timestamp;
   // updatedAt: FirebaseFirestore.Timestamp;
