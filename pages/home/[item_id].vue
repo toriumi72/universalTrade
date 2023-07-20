@@ -5,7 +5,9 @@ const {
   bookList,
   addChatItem,
   updateBookItem,
-  getBookListRealtime
+  getBookListRealtime,
+  //test
+  testGetUser,
 } = useStore()
 const {
   loggedInUser,
@@ -13,7 +15,14 @@ const {
 } = useAuth()
 
 onMounted(async () => {
-
+  await testGetUser(bookItem.value.sellerId)
+  .then((res) => {
+    bookItemSeller.value.avatarURL = res.avatarURL
+    bookItemSeller.value.displayName = res.displayName
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 })
 
 const router = useRouter()
@@ -22,11 +31,16 @@ const itemId = ref(route.params.item_id)
 const bookItem = computed(() => {
   return bookList.value ? bookList.value.find((bookItem: any) => bookItem.id == itemId.value) : null
 })
+//仮
+const bookItemSeller = ref({
+  avatarURL: "",
+  displayName: "",
+})
 
 const addChatData = computed(() => ({
   productId: itemId.value,
-  buyerId: loggedInUser.value?.uid,
   sellerId: bookItem.value.sellerId,
+  buyerId: loggedInUser.value?.uid,
 }))
 
 const navigateTo = (path: string) => {
@@ -38,11 +52,14 @@ const onGoToChat = async () => {
     console.error('bookItem is undefined')
     return
   }
-  if (bookItem.value.interestedBuyers && bookItem.value.interestedBuyers.includes(loggedInUser.value?.uid)) {
+  if (bookItem.value.buyerId && bookItem.value.buyerId === loggedInUser.value?.uid) {
     navigateTo(`/chatList/${itemId.value}`)
   }
+  else if (bookItem.value.buyerId && bookItem.value.buyerId !== loggedInUser.value?.uid) {
+    alert("この商品はすでに売り切れです。")
+  }
   else {
-    await updateBookItem(bookItem.value.id, { interestedBuyers: [loggedInUser.value?.uid] })
+    await updateBookItem(bookItem.value.id, { buyerId: loggedInUser.value?.uid, isPurchased: true })
     await addChatItem(addChatData.value)
     .then(() => {
       navigateTo(`/chatList/${itemId.value}`)
@@ -63,30 +80,20 @@ const onGoBack = () => {
   <ClientOnly>
     <div v-if="bookItem" class="relative pb-24 w-full">
       <!-- 商品画像 -->
-      <div class="sticky inset-0 w-full">
+      <div class="w-full">
         <div class="h-[30vh] w-full bg-gray-100">
           <img class="w-full h-full object-contain" :src="bookItem.imageURL" :alt="bookItem.name" />
         </div>
-        <UButton
-          @click="onGoBack"
-          :ui="{ rounded: 'rounded-full', padding: 'px-0 py-0' }"
-          class="absolute top-4 right-4"
-          color="black"
-          size="xl"
-          variant="outline"
-        >
-          <UIcon name="i-iconamoon-close-light" />
-        </UButton>
       </div>
 
       <!-- 商品詳細 -->
-      <div class="h-auto p-4 flex flex-col bg-white rounded-lg">
+      <div class="p-4 flex flex-col bg-white rounded-lg">
         <div class="text-md font-semibold mb-2">{{ bookItem.name }}</div>
         <div class="mb-4 flex flex-wrap space-x-2">
           <span
             v-for="(tag, index) in bookItem.tags"
             :key="index"
-            class="px-3 py-1 space-x-3 bg-[#6B4EFF] text-xs text-white rounded-full"
+            class="px-3 py-1 space-x-3 bg-violet-600 text-xs text-white rounded-full"
           >
             {{ tag }}
           </span>
@@ -95,7 +102,7 @@ const onGoBack = () => {
           <span class="text-3xl font-semibold"><span class="mr-1 text-xs">¥</span>{{ bookItem.price }}</span>
         </div>
         <div class="mb-6 space-y-4">
-          <div class="">出品者: {{ bookItem.seller }}</div>
+          <div class="">出品者: {{ bookItemSeller.displayName }}</div>
           <div class="">{{ bookItem.description }}</div>
           <div class="">出版年: {{ bookItem.publication_year }}</div>
           <div class="">使用年: {{ bookItem.used_in_class }}</div>
@@ -107,9 +114,9 @@ const onGoBack = () => {
       </div>
       <!-- 取引、編集へのボタン -->
       <div v-if="bookItem.sellerId !== loggedInUser?.uid" class="fixed bottom-0 left-0 flex justify-center mt-auto p-4 w-full">
-        <ButtonAction @click="onGoToChat" class="p-[0.8em] w-full bg-black text-white shadow-md">
+        <UButton @click="onGoToChat" size="xl" color="black" block>
           取引チャットへ
-        </ButtonAction>
+        </UButton>
       </div>
       <div v-else class="fixed bottom-0 left-0 flex justify-center mt-auto p-4 w-full"> 
         <ButtonAction @click="" class="p-[0.8em] w-full bg-black text-white shadow-md">

@@ -19,8 +19,8 @@ const props = defineProps<Props>()
 <template>
 
 <div class="border rounded-md">
-  <div class="relative h-52 overflow-hidden bg-gray-100">
-    <img :src="props.bookItem.imageURL" class="h-full w-full object-cover object-center" />
+  <div class="relative h-36 rounded-t-md overflow-hidden">
+    <img :src="props.bookItem.imageURL" class="h-full w-full object-cover object-center overflow-hidden" />
     <div class="absolute left-0 bottom-0 px-3 py-1.5 text-sm rounded-tr-lg bg-black/80">
       <div class="text-white">
         {{ props.bookItem.price }}円

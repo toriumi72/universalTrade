@@ -64,12 +64,11 @@ const onSlideTo = (e:any) => {
 
 <template>
   <ClientOnly>
-    {{ bookList }}
+    <!-- thumbs swiper -->
     <div class="">
-      <!-- thumbs swiper -->
       <swiper-container 
         ref="tabs"
-        class="tabs sticky top-0 pt-3 px-4 bg-white shadow-[0px_5px_6px_-1px_rgba(0,0,0,0.03)] z-[50]"
+        class="tabs sticky pt-3 px-4 bg-white shadow-[0px_5px_6px_-1px_rgba(0,0,0,0.03)] z-[50]"
         :slides-per-view="`auto`" 
         :space-between="30" 
         :watchSlidesVisibility="true"
@@ -87,11 +86,11 @@ const onSlideTo = (e:any) => {
               class="w-auto outline-none whitespace-nowrap overflow-hidden overflow-ellipsis text-center"
             />
           </div>
-          <div class="line w-full h-1 mt-2 bg-[#644DAC] rounded-full opacity-0"></div>
+          <div class="line w-full h-1 mt-2 bg-violet-600 rounded-full opacity-0"></div>
         </swiper-slide>
         <swiper-slide v-for="(tab, index) of tabArr" class="w-auto opacity-30">
           <div class="">{{ tab }}</div>
-          <div class="line w-full h-1 mt-2 bg-[#644DAC] rounded-full opacity-0"></div>
+          <div class="line w-full h-1 mt-2 bg-violet-600 rounded-full opacity-0"></div>
         </swiper-slide>
       </swiper-container>
     
@@ -100,11 +99,11 @@ const onSlideTo = (e:any) => {
         ref="content"
         thumbs-swiper=".tabs"
         @slidechange=""
-        class="bg-[#EFF0F0]"
+        class="h-[65vh] bg-[#EFF0F0] overflow-y-scroll"
       >
         <swiper-slide>{{ searchName }}</swiper-slide>
         <swiper-slide v-for="(tab, index) of tabArr">
-          <ListBook class="mx-auto container pt-4 px-2 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16">
+          <ListBook class="mx-auto container pt-4 px-2 overflow-y-scroll sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16">
             <template v-for="bookItem of bookList">
               <button v-if="tab === '全て' || bookItem.tags.some((tag:any) => tag === tab)" @click="navigateTo(`/home/${bookItem.id}`)">
                 <ItemBook :bookItem="bookItem" />

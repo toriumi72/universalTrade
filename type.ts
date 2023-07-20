@@ -25,11 +25,11 @@ export interface BookItem {
   sellerId: string;
   // createdAt: FirebaseFirestore.Timestamp;
   // updatedAt: FirebaseFirestore.Timestamp;
-  interestedBuyers: number;
+  buyerId: string;
   isDelivered: boolean;
   isPurchased: boolean;
   negotiable: boolean;
-  shipping: string;
+  transport: string;
   sold: boolean;
   tags: string[];
   usedClass: string;

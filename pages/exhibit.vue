@@ -34,8 +34,8 @@ const bookItemAddData = ref({
   description: "",
   price: 0,
   imageURL: "",
-  sellerId: "",
-  interestedBuyers: 0,
+  sellerId: userProfile.value.uid,
+  buyerId: "",
   isPurchased: false,
   isDelivered: false,
   negotiable: false,
@@ -63,6 +63,7 @@ const onAddBookItem = async () => {
       throw new Error('ログインしていません')
     }
     await addBookItem(loggedInUser.value, bookItemAddData.value)
+    alert("出品しました")
   } catch (error) {
     console.log(error)
     console.log("error")
@@ -84,13 +85,7 @@ const onAddBookItem = async () => {
 
 <template>
   <div>
-    logged:{{ loggedInUser }}
-  </div>
-  <div>
-    userProfile:{{ userProfile }}
-  </div> 
-  <div>
-    <div class="border">
+    <div class="">
       <div>
         <input type="text" v-model="bookItemAddData.name" placeholder="name">
       </div>
@@ -125,24 +120,13 @@ const onAddBookItem = async () => {
         </label>
       </div>
       <div>
-        <input type="text" v-model="bookItemAddData.usedClass" placeholder="usedClass">
+        <input type="file" @change="onFileChange" />
+        <UAvatar :src="imageURLSample" />
       </div>
-      <button @click="onAddBookItem">
+      <UButton @click="onAddBookItem">
         BookItemを追加
-      </button>
-      <div>
-        {{ bookItemAddData }}
-      </div>
+      </UButton>
     </div>
-  </div>
-
-  <div>test 画像アップロードデモコード</div>
-  <div>
-    <input type="file" @change="onFileChange" />
-    <!-- <button @click="onDownloadFile">Download File</button> -->
-    <!-- <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Image" /> -->
-    <UAvatar :src="imageURLSample" />
-    <!-- {{ fileInput }} -->
   </div>
 </template>
 

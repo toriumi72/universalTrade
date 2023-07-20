@@ -1,10 +1,11 @@
 <script setup lang="ts">
 const route = useRoute()
+console.log(route.path)
 const { loggedInUser, userProfile } = useAuth()
 const localNavArray = ref([
   {
     slack: 'home',
-    name: '教科書検索',
+    name: '教科書',
     icon: 'i-heroicons-home',
     // selectedIcon: 'mingcute:home-1-fill'
   },
@@ -16,7 +17,7 @@ const localNavArray = ref([
   },
   {
     slack: 'bookmarkList',
-    name: 'いいね',
+    name: 'ブックマーク',
     icon: 'i-heroicons-bookmark',
     // selectedIcon: 'ic:baseline-bookmark'
   },
@@ -28,7 +29,6 @@ const localNavArray = ref([
   }
 ])
 const isOpenMenu = ref(false)
-const isOpen = ref(false)
 
 let preventTouchMove: (event: TouchEvent) => void
 
@@ -47,16 +47,25 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 flex justify-end items-center py-3 px-4 sm:px-6 lg:px-8 w-full h-auto bg-white/70 backdrop-blur shadow-sm z-[99]">
-    <UButton v-if="loggedInUser" @click="navigateTo('/')" :ui="{ rounded: 'rounded-full', padding: 'px-0 py-0' }" size="sm" color="violet" variant="ghost">
-      <UAvatar v-if="loggedInUser && !userProfile?.avatarURL && loggedInUser.photoURL" :src="loggedInUser.photoURL" alt="Avatar" size="sm" />
-      <UAvatar v-else-if="userProfile && userProfile.avatarURL" :src="userProfile.avatarURL" alt="Avatar" size="sm" />
-      <USkeleton v-else :ui="{ rounded: 'rounded-full' }" class="h-8 w-8 border" />
-    </UButton>
-    <template v-else>
-      <UButton @click="navigateTo('/login')" label="ログイン" color="black" size="sm" />
+  <div class="fixed top-0 left-0 flex items-center py-3 px-4 sm:px-6 lg:px-8 w-full h-auto bg-white z-[99]">
+    <template v-for="(localNav, index) of localNavArray">
+      <div v-show="route.path === '/' + localNav.slack" class="absolute inset-x-0 text-center">
+        {{ localNav.name }}
+      </div>
     </template>
+    
+    <div class="ml-auto flex items-center"> <!-- 右側の要素をまとめるためのdivを追加 -->
+      <UButton v-if="loggedInUser" @click="navigateTo('/')" :ui="{ rounded: 'rounded-full', padding: 'px-0 py-0' }" size="sm" color="violet" variant="ghost">
+        <UAvatar v-if="loggedInUser && !userProfile?.avatarURL && loggedInUser.photoURL" :src="loggedInUser.photoURL" alt="Avatar" size="sm" />
+        <UAvatar v-else-if="userProfile && userProfile.avatarURL" :src="userProfile.avatarURL" alt="Avatar" size="sm" />
+        <USkeleton v-else :ui="{ rounded: 'rounded-full' }" class="h-8 w-8 border" />
+      </UButton>
+      <template v-else>
+        <UButton @click="navigateTo('/login')" label="ログイン" color="black" size="sm" />
+      </template>
+    </div>
   </div>
+
   
   <!-- <UContainer class="pt-14">
     <slot/>

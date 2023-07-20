@@ -101,7 +101,7 @@ export const useStore = () => {
     const { avatarURL, ...otherData } = data
 
     // Upload the file to Firebase Storage and get the URL
-    const fileUrl = await uploadFile(avatarURL)
+    const fileUrl = await uploadFile(avatarURL, "Users")
 
     await voidSetDoc(docRef("Users", uid), {
       uid,
@@ -118,7 +118,7 @@ export const useStore = () => {
     const { uid } = loggedInUser
     const { seller, imageURL, ...otherData } = data
 
-    const fileUrl = await uploadFile(imageURL)
+    const fileUrl = await uploadFile(imageURL, "BookList")
 
     const bookListCollection = collection(db, "BookList")
     const bookListRef = await getAddDocRef(bookListCollection, {
@@ -164,6 +164,18 @@ export const useStore = () => {
       // const { uid } = loggedInUser
   }
 
+  //test
+  //uidを指定して、そのユーザーのavatarURLとnameを取得する
+  const testGetUser = async (uid:string) => {
+    const documentSnapshot = await getDocumentSnapshot(doc(db, "Users", uid))
+    const data = documentSnapshot.data()
+    if (!data) {
+      throw new Error("ドキュメントがないよ！")
+    }
+    console.log(data)
+    return Promise.resolve(data)
+  }
+
   return {
     //global 
     bookList,
@@ -180,5 +192,8 @@ export const useStore = () => {
     //ChatList
     getChatListRealtime,
     addChatItem,
+
+    //test
+    testGetUser,
   }
 }
