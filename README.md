@@ -1,64 +1,38 @@
-# Nuxt 3 Minimal Starter
+# UniBookTrade
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+UniBookTradeは、大学内で古い教科書を売買することができるアプリです。大学単位での閉鎖的なSNSとしても機能し、データ収集が容易で、生徒同士の繋がりを深めることができます。
 
-## Setup
+## 機能
 
-Make sure to install the dependencies:
+### 未ログイン時
 
-```bash
-# npm
-npm install
+- **教科書一覧の閲覧**: ログインしなくても、出品されている教科書の一覧を見ることができます。
 
-# pnpm
-pnpm install
+![教科書一覧スクリーンショット](画像のURL)
 
-# yarn
-yarn install
-```
+### ログイン後
 
-## Development Server
+- **教科書の出品**: ログインすると、自分の持っている教科書を投稿することができます。教科書の名前などを設定し、写真を添付して投稿します。
 
-Start the development server on `http://localhost:3000`:
+![教科書出品スクリーンショット](画像のURL)
 
-```bash
-# npm
-npm run dev
+- **ブックマーク機能**: 気に入った教科書をブックマークして、後で簡単に見つけることができます。
 
-# pnpm
-pnpm run dev
+![ブックマークスクリーンショット](画像のURL)
 
-# yarn
-yarn dev
-```
+- **チャット機能**: 投稿者と直接コミュニケーションを取ることができます。質問をしたりすることができます。
 
-## Production
+![チャットスクリーンショット](画像のURL)
 
-Build the application for production:
+## PWA対応
 
-```bash
-# npm
-npm run build
+UniBookTradeはPWA（Progressive Web App）に対応しています。これにより、ウェブブラウザから直接アクセスするだけでなく、ネイティブアプリのようにスマートフォンのホーム画面に追加して使用することもできます。
 
-# pnpm
-pnpm run build
+![PWAスクリーンショット](画像のURL)
 
-# yarn
-yarn build
-```
+## 使い方
 
-Locally preview production build:
+1. UniBookTradeのウェブサイトにアクセスします（デプロイしてないので存在しない）。
+2. メールアドレスとパスワードでログインします（アカウントがない場合は作成してください。）。
+3. ログイン後は、教科書を投稿したり、ブックマークしたり、投稿者とチャットしたりすることができます。
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# universalTrade
